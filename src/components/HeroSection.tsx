@@ -10,9 +10,17 @@ const HeroSection = () => {
     try {
       if (loading) return;
       setLoading(true);
+      axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
       axios
         .get(
-          "https://api.reelgood.com/v3.0/content/browse/filtered?availability=onAnySource&content_kind=movie&hide_seen=false&hide_tracked=false&hide_watchlisted=false&imdb_end=10&imdb_start=0&region=us&rg_end=100&rg_start=0&skip=100&sort=1&take=15&year_end=2024&year_start=2008"
+          "https://api.reelgood.com/v3.0/content/browse/filtered?availability=onAnySource&content_kind=movie&hide_seen=false&hide_tracked=false&hide_watchlisted=false&imdb_end=10&imdb_start=0&region=us&rg_end=100&rg_start=0&skip=100&sort=1&take=15&year_end=2024&year_start=2008",
+          {
+            headers: {
+              "Cache-Control": "no-cache",
+              "Content-Type": "application/x-www-form-urlencoded",
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
         )
         .then((res) => setMovies(res.data.results));
     } catch (error) {
@@ -20,7 +28,7 @@ const HeroSection = () => {
     } finally {
       setLoading(false);
     }
-  }, [loading]);
+  }, []);
 
   return (
     <>
