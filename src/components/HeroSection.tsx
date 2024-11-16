@@ -20,7 +20,7 @@ const HeroSection = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [loading]);
 
   return (
     <>
