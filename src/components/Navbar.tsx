@@ -1,10 +1,30 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Menu, MenuItem, ProductItem } from "@/components/ui/navbar-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import axios from "axios";
 const Navbar = ({ className }: { className?: string }) => {
   const [active, setActive] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [movie, setMovie] = useState<any>([]);
+
+  useEffect(() => {
+    try {
+      if (loading) return;
+      setLoading(true);
+      axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
+      axios
+        .get(
+          "https://api.themoviedb.org/3/trending/movie/day?api_key=8fa799d9ed64f37163d9d60cfa8dbdda&page=1"
+        )
+        .then((res) => setMovie(res.data.results));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   return (
     <div
@@ -17,24 +37,17 @@ const Navbar = ({ className }: { className?: string }) => {
 
         <MenuItem setActive={setActive} active={active} item="Trending">
           <div className="text-sm grid grid-row-1 gap-10 p-4">
-            <ProductItem
-              title="Tailwind Master Kit"
-              href="https://tailwindmasterkit.com"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
-              description="Production ready Tailwind css components for your next project"
-            />
-            <ProductItem
-              title="Tailwind Master Kit"
-              href="https://tailwindmasterkit.com"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
-              description="Production ready Tailwind css components for your next project"
-            />
-            <ProductItem
-              title="Tailwind Master Kit"
-              href="https://tailwindmasterkit.com"
-              src="https://assets.aceternity.com/demos/tailwindmasterkit.webp"
-              description="Production ready Tailwind css components for your next project"
-            />
+            {movie?.map((items: any, index: number) =>
+              index < 3 ? (
+                <ProductItem
+                  key={index}
+                  title={items.title}
+                  href={`https://marketplace.canva.com/EAF9bttRWYM/1/document_450w/canva-black-white-creative-coming-soon-instagram-reel-xunaLow9GuM.mp4`}
+                  src={`https://image.tmdb.org/t/p/w500//${items.poster_path}`}
+                  description={items.overview}
+                />
+              ) : null
+            )}
           </div>
         </MenuItem>
         <Link href={"/contact"}>
