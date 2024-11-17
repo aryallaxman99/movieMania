@@ -16,7 +16,7 @@ export const HeroParallax = ({
   products: {
     id: string;
     title: string;
-    slug: string;
+    poster_path: string;
   }[];
 }) => {
   const firstRow = products.slice(0, 5);
@@ -57,7 +57,7 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="h-[370vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] mb-72"
+      className="h-[370vh] py-40 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] mb-72"
     >
       <Header />
       <motion.div
@@ -106,7 +106,7 @@ export const Header = () => {
     <div>
       <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
         <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
-          The Ultimate <br /> Movie studio
+          The Ultimate <br /> Movie Mania
         </h1>
         <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
           You know what your problem is, it's that you haven't seen enough
@@ -124,7 +124,7 @@ export const ProductCard = ({
   product: {
     id: string;
     title: string;
-    slug: string;
+    poster_path: string;
   };
   translate: MotionValue<number>;
 }) => {
@@ -141,12 +141,13 @@ export const ProductCard = ({
     >
       <Link
         target="_blank"
-        href={`https://reelgood.com/movie/${product.slug}`}
+        href={`https://marketplace.canva.com/EAF9bttRWYM/1/document_450w/canva-black-white-creative-coming-soon-instagram-reel-xunaLow9GuM.mp4`}
         className="block group-hover/product:shadow-2xl "
       >
         <Image
-          src={`https://img.rgstatic.com/content/movie/${product.id}/poster-500.webp`}
+          src={`https://image.tmdb.org/t/p/w500//${product.poster_path}`}
           unoptimized
+          priority
           height="600"
           width="600"
           className="object-cover object-left-top absolute h-full w-full inset-0"

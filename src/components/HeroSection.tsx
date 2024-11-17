@@ -13,7 +13,7 @@ const HeroSection = () => {
       axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
       axios
         .get(
-          "https://api.reelgood.com/v3.0/content/browse/filtered?availability=onAnySource&content_kind=movie&hide_seen=false&hide_tracked=false&hide_watchlisted=false&imdb_end=10&imdb_start=0&region=us&rg_end=100&rg_start=0&skip=100&sort=1&take=15&year_end=2024&year_start=2008"
+          "https://api.themoviedb.org/3/search/movie?api_key=8fa799d9ed64f37163d9d60cfa8dbdda&query=any&with_genres=&language=en-US"
         )
         .then((res) => setMovies(res.data.results));
     } catch (error) {
