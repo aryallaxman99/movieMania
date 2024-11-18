@@ -1,30 +1,28 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Menu, MenuItem, ProductItem } from "@/components/ui/navbar-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import axios from "axios";
+import { useGetData } from "@/hooks/useGetData";
+
 const Navbar = ({ className }: { className?: string }) => {
   const [active, setActive] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [movie, setMovie] = useState<any>([]);
 
-  useEffect(() => {
-    try {
-      if (loading) return;
-      setLoading(true);
-      axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
-      axios
-        .get(
-          "https://api.themoviedb.org/3/trending/movie/day?api_key=8fa799d9ed64f37163d9d60cfa8dbdda&page=1"
-        )
-        .then((res) => setMovie(res.data.results));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const options = {
+    method: "GET",
+    url: "https://api.themoviedb.org/3/trending/movie/day",
+    params: {
+      api_key: "8fa799d9ed64f37163d9d60cfa8dbdda",
+      page: "1",
+    },
+    headers: { accept: "application/json" },
+  };
+
+  const { movies, loading } = useGetData(options);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <div
@@ -37,7 +35,7 @@ const Navbar = ({ className }: { className?: string }) => {
 
         <MenuItem setActive={setActive} active={active} item="Trending">
           <div className="text-sm grid grid-row-1 gap-10 p-4">
-            {movie?.map((items: any, index: number) =>
+            {movies?.map((items: any, index: number) =>
               index < 3 ? (
                 <ProductItem
                   key={index}
