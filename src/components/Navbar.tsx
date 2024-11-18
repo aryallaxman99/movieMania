@@ -12,7 +12,6 @@ const Navbar = ({ className }: { className?: string }) => {
     method: "GET",
     url: "https://api.themoviedb.org/3/trending/movie/day",
     params: {
-      api_key: "8fa799d9ed64f37163d9d60cfa8dbdda",
       page: "1",
     },
     headers: { accept: "application/json" },

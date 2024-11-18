@@ -9,8 +9,9 @@ interface options{
   }
 export const useGetData = (options:options) => {
     const [loading, setLoading] = useState<boolean>(false);
-    const [movies, setMovies] = useState([]);
-  
+    const [movies, setMovies] = useState<[]>([]);      
+    options.params.api_key= "8fa799d9ed64f37163d9d60cfa8dbdda"
+    
     useEffect(() => {
       try {
         if (loading) return;

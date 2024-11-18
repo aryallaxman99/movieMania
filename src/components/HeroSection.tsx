@@ -4,12 +4,11 @@ import { useGetData } from "@/hooks/useGetData";
 const HeroSection = () => {
   const options = {
     method: "GET",
-    url: "https://api.themoviedb.org/3/search/movie",
+    url: "https://api.themoviedb.org/3/movie/popular",
     params: {
-      api_key: "8fa799d9ed64f37163d9d60cfa8dbdda",
-      query: "any",
       with_genres: "",
       language: "en-US",
+      region: "NP",
     },
     headers: { accept: "application/json" },
   };

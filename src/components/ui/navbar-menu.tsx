@@ -102,7 +102,7 @@ export const ProductItem = ({
         <h4 className="text-xl font-bold mb-1 text-black dark:text-white">
           {title}
         </h4>
-        <p className="text-neutral-700 text-sm max-w-[35rem] dark:text-neutral-300">
+        <p className="hidden md:flex text-neutral-700 text-sm max-w-[35rem] dark:text-neutral-300">
           {description}
         </p>
       </div>
