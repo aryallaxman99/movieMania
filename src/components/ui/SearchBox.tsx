@@ -1,23 +1,40 @@
 "use client";
+import { useSearchData } from "@/hooks/useSearchData";
 import Input from "@/widgets/Input/Input";
 import { useState } from "react";
 
 const SearchBox = () => {
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState<string>("");
+  const { movies, click, setClick } = useSearchData(searchText);
+
+  const buttonClick = () => {
+    if (click) return;
+    setClick(true);
+  };
 
   return (
-    <div className="w-full flex relative pl-4 max-w-xl mx-auto dark:bg-zinc-800 h-12 rounded-full overflow-hidden mt-10">
-      <Input
-        type="input"
-        className="dark:bg-zinc-800 h-12 border-hidden focus:outline-0"
-        placeholder="Search..."
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setSearchText(e.target.value)
-        }
-      />
-      <div className="mt-4 mr-4 hover:cursor-pointer">
-        <ArrowLogo />
+    <div>
+      <div className="w-full flex relative pl-4 max-w-xl mx-auto dark:bg-zinc-800 h-12 rounded-full overflow-hidden mt-10">
+        <Input
+          type="input"
+          className="dark:bg-zinc-800 h-12 border-hidden focus:outline-0"
+          placeholder="Search..."
+          value={searchText}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setSearchText(e.target.value)
+          }
+        />
+
+        <div
+          className="mt-4 mr-4 hover:cursor-pointer"
+          onClick={() => buttonClick()}
+        >
+          <ArrowLogo />
+        </div>
       </div>
+      {movies.map((movie: any) => (
+        <div key={movie.id}>{movie.title}</div>
+      ))}
     </div>
   );
 };
