@@ -57,6 +57,7 @@ interface Card {
   src: string;
 }
 
+Card.displayName = "Card";
 export function FocusCards({ cards }: { cards: Card[] }) {
   const [hovered, setHovered] = useState<number | null>(null);
 
