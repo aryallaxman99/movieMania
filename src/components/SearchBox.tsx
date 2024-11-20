@@ -2,6 +2,7 @@
 import { useSearchData } from "@/hooks/useSearchData";
 import Input from "@/widgets/Input/Input";
 import { useState } from "react";
+import DisplayMovie from "./DisplayMovie";
 
 const SearchBox = () => {
   const [searchText, setSearchText] = useState<string>("");
@@ -32,9 +33,7 @@ const SearchBox = () => {
           <ArrowLogo />
         </div>
       </div>
-      {movies.map((movie: any) => (
-        <div key={movie.id}>{movie.title}</div>
-      ))}
+      <DisplayMovie movie={movies} />
     </div>
   );
 };

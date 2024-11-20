@@ -1,4 +1,4 @@
-import SearchBox from "@/components/ui/SearchBox";
+import SearchBox from "@/components/SearchBox";
 
 const page = () => {
   return (
