@@ -7,10 +7,8 @@ const page = () => {
         Get in touch
       </h1>
       <h3 className="text-xl sm:text-base mt-3">
-        Want to get in touch?
-        <br className="sm:flex md:hidden" />
-        We'd love to here from you.
-        <br className="sm:flex md:hidden" />
+        Want to get in touch? <br className="sm:flex md:hidden" />
+        We'd love to here from you. <br className="sm:flex md:hidden" />
         Here's how you can reach to us...
       </h3>
       <a
