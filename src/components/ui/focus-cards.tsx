@@ -16,10 +16,7 @@ export const Card = React.memo(
     hovered: number | null;
     setHovered: React.Dispatch<React.SetStateAction<number | null>>;
   }) => (
-    <Link
-      href={`https://image.tmdb.org/t/p/w500/${card.poster_path}`}
-      target="_blank"
-    >
+    <Link href={`movie/${card.id}`}>
       <div
         onMouseEnter={() => setHovered(index)}
         onMouseLeave={() => setHovered(null)}

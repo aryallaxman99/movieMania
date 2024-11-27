@@ -140,8 +140,7 @@ export const ProductCard = ({
       className="group/product h-[500px] w-[30rem] relative flex-shrink-0"
     >
       <Link
-        target="_blank"
-        href={`https://marketplace.canva.com/EAF9bttRWYM/1/document_450w/canva-black-white-creative-coming-soon-instagram-reel-xunaLow9GuM.mp4`}
+        href={`movie/${product.id}`}
         className="block group-hover/product:shadow-2xl "
       >
         <Image

@@ -39,7 +39,7 @@ const Navbar = ({ className }: { className?: string }) => {
                 <ProductItem
                   key={index}
                   title={items.title}
-                  href={`https://marketplace.canva.com/EAF9bttRWYM/1/document_450w/canva-black-white-creative-coming-soon-instagram-reel-xunaLow9GuM.mp4`}
+                  href={`movie/${items.id}`}
                   src={`https://image.tmdb.org/t/p/w500//${items.poster_path}`}
                   description={items.overview}
                 />

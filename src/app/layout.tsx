@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import MovieContextProvider from "@/context/MovieContextProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,10 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="w-full flex relative justify-center items-center">
-          <Navbar />
-        </div>
-        {children}
+        <MovieContextProvider>
+          <div className="w-full flex relative justify-center items-center">
+            <Navbar />
+          </div>
+          {children}
+        </MovieContextProvider>
       </body>
     </html>
   );

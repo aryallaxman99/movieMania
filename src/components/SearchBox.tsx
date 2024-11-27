@@ -1,17 +1,23 @@
 "use client";
 import { useSearchData } from "@/hooks/useSearchData";
 import Input from "@/widgets/Input/Input";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DisplayMovie from "./DisplayMovie";
+import MovieContext from "@/context/MovieContext";
 
 const SearchBox = () => {
   const [searchText, setSearchText] = useState<string>("");
   const { movies, click, setClick } = useSearchData(searchText);
-
+  const { setMovieLists, movieLists } = useContext(MovieContext);
   const buttonClick = () => {
     if (click) return;
     setClick(true);
   };
+
+  // useEffect(() => {
+  //   setMovieLists([...movies]);
+  // }, [movies]);
+  // console.log(movieLists);
 
   return (
     <div>
