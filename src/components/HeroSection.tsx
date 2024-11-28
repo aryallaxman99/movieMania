@@ -1,7 +1,12 @@
 "use client";
 import { HeroParallax } from "./ui/hero-parallax";
 import { useGetData } from "@/hooks/useGetData";
+import { useContext, useEffect } from "react";
+import MovieContext from "@/context/MovieContext";
+
 const HeroSection = () => {
+  const { setMovieLists } = useContext(MovieContext);
+
   const options = {
     method: "GET",
     url: "https://api.themoviedb.org/3/movie/popular",
@@ -15,14 +20,12 @@ const HeroSection = () => {
 
   const { movies, loading } = useGetData(options);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
+  useEffect(() => {
+    setMovieLists((prev: []) => [prev, ...movies].flat());
+  }, [movies]);
 
   return (
-    <>
-      <HeroParallax products={movies} />
-    </>
+    <>{loading ? <h1>Loading...</h1> : <HeroParallax products={movies} />}</>
   );
 };
 

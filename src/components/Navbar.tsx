@@ -1,12 +1,14 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Menu, MenuItem, ProductItem } from "@/components/ui/navbar-menu";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useGetData } from "@/hooks/useGetData";
+import MovieContext from "@/context/MovieContext";
 
 const Navbar = ({ className }: { className?: string }) => {
   const [active, setActive] = useState<string | null>(null);
+  const { setMovieLists } = useContext(MovieContext);
 
   const options = {
     method: "GET",
@@ -22,6 +24,12 @@ const Navbar = ({ className }: { className?: string }) => {
   if (loading) {
     return <h1>Loading...</h1>;
   }
+
+  useEffect(() => {
+    setMovieLists((prev: []) =>
+      [prev, ...movies.filter((item: any, index: number) => index < 3)].flat()
+    );
+  }, [movies]);
 
   return (
     <div
