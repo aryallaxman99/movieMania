@@ -1,12 +1,12 @@
 import { createContext } from "react";
 
 interface MovieContextType {
-    movieLists: any;
+    movieLists: [];
     setMovieLists: (movieLists: any) => void;
 }
 const MovieContext = createContext<MovieContextType>({
-    movieLists: {},
-    setMovieLists: () => { }
+    movieLists: [],
+    setMovieLists: () => []
 });
 
 export default MovieContext

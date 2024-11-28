@@ -5,7 +5,7 @@ import MovieContext from "./MovieContext";
 const MovieContextProvider = ({
   children,
 }: Readonly<{ children: React.ReactNode }>) => {
-  const [movieLists, setMovieLists] = useState<any>();
+  const [movieLists, setMovieLists] = useState<[]>([]);
   return (
     <MovieContext.Provider value={{ movieLists, setMovieLists }}>
       {children}

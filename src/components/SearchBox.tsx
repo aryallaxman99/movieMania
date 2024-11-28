@@ -8,16 +8,15 @@ import MovieContext from "@/context/MovieContext";
 const SearchBox = () => {
   const [searchText, setSearchText] = useState<string>("");
   const { movies, click, setClick } = useSearchData(searchText);
-  const { setMovieLists, movieLists } = useContext(MovieContext);
+  const { setMovieLists } = useContext(MovieContext);
   const buttonClick = () => {
     if (click) return;
     setClick(true);
   };
 
-  // useEffect(() => {
-  //   setMovieLists([...movies]);
-  // }, [movies]);
-  // console.log(movieLists);
+  useEffect(() => {
+    setMovieLists((prev: []) => [prev, ...movies].flat());
+  }, [click]);
 
   return (
     <div>
@@ -29,6 +28,9 @@ const SearchBox = () => {
           value={searchText}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setSearchText(e.target.value)
+          }
+          onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) =>
+            e.key === "Enter" ? setClick(true) : null
           }
         />
 

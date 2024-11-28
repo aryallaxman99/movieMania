@@ -1,5 +1,11 @@
-const page = ({ params }: any) => {
-  return <p>ID: {params.id}</p>;
+import MovieDetails from "@/components/MovieDetails";
+
+const page = () => {
+  return (
+    <>
+      <MovieDetails />
+    </>
+  );
 };
 
 export default page;
