@@ -21,10 +21,6 @@ const Navbar = ({ className }: { className?: string }) => {
 
   const { movies, loading } = useGetData(options);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-
   useEffect(() => {
     if (!loading && movies) {
       setMovieLists((prev: any[]) => [
@@ -45,16 +41,20 @@ const Navbar = ({ className }: { className?: string }) => {
 
         <MenuItem setActive={setActive} active={active} item="Trending">
           <div className="text-sm grid grid-row-1 gap-10 p-4">
-            {movies?.map((items: any, index: number) =>
-              index < 3 ? (
-                <ProductItem
-                  key={index}
-                  title={items.title}
-                  href={`/movie/${items.id}`}
-                  src={`https://image.tmdb.org/t/p/w500//${items.poster_path}`}
-                  description={items.overview}
-                />
-              ) : null
+            {loading ? (
+              <h1>Loading...</h1>
+            ) : (
+              movies?.map((items: any, index: number) =>
+                index < 3 ? (
+                  <ProductItem
+                    key={index}
+                    title={items.title}
+                    href={`/movie/${items.id}`}
+                    src={`https://image.tmdb.org/t/p/w500//${items.poster_path}`}
+                    description={items.overview}
+                  />
+                ) : null
+              )
             )}
           </div>
         </MenuItem>
