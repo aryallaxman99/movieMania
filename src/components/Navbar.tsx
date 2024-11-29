@@ -26,10 +26,13 @@ const Navbar = ({ className }: { className?: string }) => {
   }
 
   useEffect(() => {
-    setMovieLists((prev: []) =>
-      [prev, ...movies.filter((item: any, index: number) => index < 3)].flat()
-    );
-  }, [movies]);
+    if (!loading && movies) {
+      setMovieLists((prev: any[]) => [
+        ...prev,
+        ...movies.filter((item: any, index: number) => index < 3),
+      ]);
+    }
+  }, [loading, movies, setMovieLists]);
 
   return (
     <div
@@ -47,7 +50,7 @@ const Navbar = ({ className }: { className?: string }) => {
                 <ProductItem
                   key={index}
                   title={items.title}
-                  href={`movie/${items.id}`}
+                  href={`/movie/${items.id}`}
                   src={`https://image.tmdb.org/t/p/w500//${items.poster_path}`}
                   description={items.overview}
                 />
