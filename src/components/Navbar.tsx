@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useGetData } from "@/hooks/useGetData";
 import MovieContext from "@/context/MovieContext";
+import Loading from "@/widgets/Loading/Loading";
 
 const Navbar = ({ className }: { className?: string }) => {
   const [active, setActive] = useState<string | null>(null);
@@ -42,7 +43,7 @@ const Navbar = ({ className }: { className?: string }) => {
         <MenuItem setActive={setActive} active={active} item="Trending">
           <div className="text-sm grid grid-row-1 gap-10 p-4">
             {loading ? (
-              <h1>Loading...</h1>
+              <Loading className="text-base mt-0" />
             ) : (
               movies?.map((items: any, index: number) =>
                 index < 3 ? (

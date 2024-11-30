@@ -1,14 +1,15 @@
 "use client";
-import { useContext } from "react";
 import { useParams } from "next/navigation";
-import MovieContext from "@/context/MovieContext";
+import { useFindMovie } from "@/hooks/useFindMovie";
+import Loading from "@/widgets/Loading/Loading";
 
 const MovieDetails = () => {
   const { id }: { id: string } = useParams();
-  const { movieLists } = useContext(MovieContext);
-  console.log(movieLists);
+  const { movies, loading } = useFindMovie(id);
 
-  return <p>ID: {id}</p>;
+  console.log(movies);
+
+  return <div>{loading ? <Loading className="" /> : <p>ID: {id}</p>}</div>;
 };
 
 export default MovieDetails;
