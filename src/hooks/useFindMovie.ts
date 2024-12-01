@@ -10,7 +10,8 @@ interface options {
 
 export const useFindMovie = (id: string) => {
     const [loading, setLoading] = useState<boolean>(false)
-    const [movies, setMovies] = useState<[]>([])
+    const [movies, setMovies] = useState<any>({})
+    const [errorMessage, SetErrorMessage] = useState<string>("")
 
     const options: options = {
         method: "GET",
@@ -28,8 +29,9 @@ export const useFindMovie = (id: string) => {
                 setLoading(true)
                 const response = await axios.request(options)
                 setMovies(response.data)
-            } catch (error) {
+            } catch (error: any) {
                 console.log(error);
+                SetErrorMessage(error.response.data.status_message);
             }
             finally {
                 setLoading(false)
@@ -37,5 +39,5 @@ export const useFindMovie = (id: string) => {
         })()
     }, [id])
 
-    return { movies, loading }
+    return { movies, loading, errorMessage }
 }
