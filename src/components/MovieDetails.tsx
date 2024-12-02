@@ -4,6 +4,9 @@ import { useFindMovie } from "@/hooks/useFindMovie";
 import Loading from "@/widgets/Loading/Loading";
 import Image from "next/image";
 import Link from "next/link";
+import { AnimatedTooltip } from "./ui/animated-tooltip";
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 const MovieDetails = () => {
   const { id }: { id: string } = useParams();
@@ -40,14 +43,23 @@ export const MovieUI = (props: any) => {
         unoptimized
       />
       <div className="p-10 absolute flex gap-10">
-        <Image
-          className="rounded-md hover:blur-sm"
-          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-          alt=""
-          width={300}
-          height={400}
-          unoptimized
-        />
+        <Link
+          href={
+            movie.imdb_id
+              ? `https://www.imdb.com/title/${movie.imdb_id}`
+              : `/movie/${id}`
+          }
+          target="_blank"
+        >
+          <Image
+            className="rounded-md hover:blur-sm"
+            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+            alt={`poster image of ${movie.title}`}
+            width={300}
+            height={400}
+            unoptimized
+          />
+        </Link>
         <main>
           <div>
             <div className="flex gap-3 text-3xl">
@@ -72,19 +84,49 @@ export const MovieUI = (props: any) => {
                   <p key={genre.id}>{genre.name}</p>
                 ))}
               </div>
-              <p>{movie?.runtime}m</p>
+              <p>{movie.runtime ? `${movie.runtime}m` : null}</p>
             </span>
           </div>
-          <div className="mt-32">
-            <p className="font-mono font-medium text-base text-zinc-400">
-              {movie.tagline}
-            </p>
-            {movie.overview ? (
-              <>
-                <h1 className="text-2xl font-medium">Overview</h1>
-                <p className="text-base">{movie.overview}</p>
-              </>
+          <div className="w-14 h-14 mt-10">
+            {movie.vote_average ? (
+              <CircularProgressbar
+                className="bg-gray-900 overflow-hidden rounded-full font-bold"
+                value={movie.vote_average * 10}
+                text={`${Math.floor(movie.vote_average * 10)}%`}
+                styles={buildStyles({
+                  textColor: "white",
+                  pathColor: "green",
+                  trailColor: "white",
+                })}
+              />
             ) : null}
+          </div>
+          <div className="mt-10">
+            <div>
+              <p className="font-mono font-medium text-base text-zinc-400">
+                {movie.tagline}
+              </p>
+              {movie.overview ? (
+                <>
+                  <h1 className="text-2xl font-medium">Overview</h1>
+                  <p className="text-base">{movie.overview}</p>
+                </>
+              ) : null}
+            </div>
+            <div className="flex space-x-4 mt-3 font-bold text-sm text-zinc-400">
+              <p>{movie.budget ? `Budget: $${movie.budget}` : null} </p>
+              <p>{movie.revenue ? `Revenue: $${movie.revenue}` : null}</p>
+            </div>
+            <div className="mt-3">
+              {movie.production_companies ? (
+                <>
+                  <h2 className="text-2xl font-medium">Production companies</h2>
+                  <div className="flex mt-2">
+                    <AnimatedTooltip items={movie.production_companies} />
+                  </div>
+                </>
+              ) : null}
+            </div>
           </div>
         </main>
       </div>
