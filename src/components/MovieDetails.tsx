@@ -31,7 +31,6 @@ export default MovieDetails;
 
 export const MovieUI = (props: any) => {
   const { movie, id } = props;
-  console.log(movie);
 
   return (
     <div>
@@ -52,7 +51,7 @@ export const MovieUI = (props: any) => {
           target="_blank"
         >
           <Image
-            className="rounded-md hover:blur-sm"
+            className="hidden md:flex rounded-md hover:blur-sm"
             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
             alt={`poster image of ${movie.title}`}
             width={300}
@@ -76,7 +75,7 @@ export const MovieUI = (props: any) => {
                   : ""}
               </h2>
             </div>
-            <span className="flex space-x-2 font-serif font-semibold text-zinc-400">
+            <span className="flex flex-col md:flex-row md:space-x-2 font-serif font-semibold text-zinc-400">
               <p>{movie.status}</p>
               <p>{movie.release_date} </p>
               <div className="flex space-x-2">
@@ -90,7 +89,7 @@ export const MovieUI = (props: any) => {
           <div className="w-14 h-14 mt-10">
             {movie.vote_average ? (
               <CircularProgressbar
-                className="bg-gray-900 overflow-hidden rounded-full font-bold"
+                className="bg-gray-900 overflow-hidden rounded-full font-bold hover:scale-110"
                 value={movie.vote_average * 10}
                 text={`${Math.floor(movie.vote_average * 10)}%`}
                 styles={buildStyles({
